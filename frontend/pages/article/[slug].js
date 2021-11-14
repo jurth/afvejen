@@ -5,6 +5,7 @@ import Layout from "../../components/layout"
 import NextImage from "../../components/image"
 import Seo from "../../components/seo"
 import { getStrapiMedia } from "../../lib/media"
+import rehypeRaw from 'rehype-raw'
 
 const Article = ({ article, categories }) => {
   const imageUrl = getStrapiMedia(article.image)
@@ -30,7 +31,7 @@ const Article = ({ article, categories }) => {
       </div>
       <div className="uk-section">
         <div className="uk-container uk-container-small">
-          <ReactMarkdown source={article.content} escapeHtml={false} />
+          <ReactMarkdown rehypePlugins={[rehypeRaw]} source={article.content} escapeHtml={false} />
           <hr className="uk-divider-small" />
           <div className="uk-grid-small uk-flex-left" data-uk-grid="true">
             <div>

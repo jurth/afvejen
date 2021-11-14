@@ -1,17 +1,26 @@
 import React from "react"
-import Articles from "../components/articles"
+import Articles from "../components/articles/articles"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { fetchAPI } from "../lib/api"
 
 const Home = ({ articles, categories, homepage }) => {
+
+  // Do not show article in the "demo" category.
+  const articlesToshow = articles.filter(function(article) {
+    if (article.category.name !== "demo") {
+      return article;
+    }
+  });
+
+
   return (
     <Layout categories={categories}>
       <Seo seo={homepage.seo} />
       <div className="uk-section">
         <div className="uk-container uk-container-large">
           <h1>{homepage.hero.title}</h1>
-          <Articles articles={articles} />
+          <Articles articles={articlesToshow} />
         </div>
       </div>
     </Layout>
