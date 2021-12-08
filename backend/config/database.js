@@ -25,22 +25,12 @@ module.exports = ({ env }) => ({
         password: env("DATABASE_PASSWORD"),
         schema: env("DATABASE_SCHEMA", "public"),
         ssl: {
-          ca: fs.readFileSync(`${__dirname}/../.certs/server-ca.pem`).toString(),
-          cert: fs.readFileSync(`${__dirname}/../.certs/client-cert.pem`).toString(),
-          key: fs.readFileSync(`${__dirname}/../.certs/client-key.pem`).toString(),
+          ca: Buffer.from(env("SERVER_CA"), "base64").toString("ascii"),
+          cert: Buffer.from(env("CLIENT_CERT"), "base64").toString("ascii"),
+          key: Buffer.from(env("CLIENT_KEY"), "base64").toString("ascii"),
           rejectUnauthorized: false,
         },
       },
-      // options: {
-      //   min: 2,
-      //   max: 6,
-      //   createTimeoutMillis: 3000,
-      //   acquireTimeoutMillis: 30000,
-      //   idleTimeoutMillis: 30000,
-      //   reapIntervalMillis: 1000,
-      //   createRetryIntervalMillis: 100,
-      //   propagateCreateError: false // <- default is true, set to false
-      // },
     },
   },
 });
