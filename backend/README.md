@@ -12,10 +12,20 @@ Run the image
 Authenticate docker for Cloud Run
 `gcloud auth configure-docker`
 
-## Build and submit image 
-Build the image with Docker (Does not work yet)
-`docker build . --tag europe-west4-docker.pkg.dev/afvejen/repository:latest`
+## Build and submit image With Docker
+Build the image with Docker 
+`docker build . --tag europe-west4-docker.pkg.dev/afvejen/repository/afvejen-backend:latest`
 
+Configure Docker to access repository (one time only)
+`gcloud auth configure-docker europe-west4-docker.pkg.dev`
+
+Push to repository
+`docker push europe-west4-docker.pkg.dev/afvejen/repository/afvejen-backend:latest`
+
+Deploy new image
+`gcloud run deploy afvejen-backend-stage --image europe-west4-docker.pkg.dev/afvejen/repository/afvejen-backend:latest`
+
+## Build and submit image With gcloud
 Build the image with gcloud and submit to repository
 `gcloud builds submit --tag europe-west4-docker.pkg.dev/afvejen/repository/afvejen-backend:latest`
 

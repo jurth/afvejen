@@ -1,4 +1,16 @@
 {
+  "dependencies": {
+    "@strapi/design-system": "^0.0.1-alpha.70",
+    "@strapi/plugin-graphql": "^4.0.0",
+    "@strapi/plugin-i18n": "4.0.0",
+    "@strapi/plugin-users-permissions": "4.0.0",
+    "@strapi/strapi": "4.0.0",
+    "lodash.set": "^4.3.2",
+    "mime-types": "^2.1.27",
+    "pg": "^8.7.1",
+    "sqlite3": "5.0.2",
+    "strapi-provider-upload-google-cloud-storage": "^4.0.0"
+  },
   "name": "backend",
   "private": true,
   "version": "0.1.0",
@@ -9,34 +21,17 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "dependencies": {
-    "knex": "0.21.18",
-    "mime-types": "^2.1.27",
-    "pg": "^8.7.1",
-    "sqlite3": "5.0.0",
-    "strapi": "3.6.8",
-    "strapi-admin": "3.6.8",
-    "strapi-connector-bookshelf": "3.6.8",
-    "strapi-plugin-content-manager": "3.6.8",
-    "strapi-plugin-content-type-builder": "3.6.8",
-    "strapi-plugin-email": "3.6.8",
-    "strapi-plugin-graphql": "3.6.8",
-    "strapi-plugin-i18n": "3.6.8",
-    "strapi-plugin-upload": "3.6.8",
-    "strapi-plugin-users-permissions": "3.6.8",
-    "strapi-utils": "3.6.8"
-  },
   "author": {
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "d9c4e851-e975-4114-b846-11c4a1a8c854",
-    "template": "https://github.com/strapi/strapi-template-blog",
-    "starter": "https://github.com/strapi/strapi-starter-next-blog"
+    "uuid": "4b5614e8-6164-49b4-806d-193d12722041",
+    "template": "@strapi/template-blog@^1.0.0",
+    "starter": "@strapi/starter-next-blog"
   },
   "engines": {
-    "node": ">=10.16.0 <=14.x.x",
-    "npm": "^6.0.0"
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
   },
   "license": "MIT"
 }

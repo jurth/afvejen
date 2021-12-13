@@ -120,3 +120,10 @@ exports
 build
 .strapi-updater.json
 .certs
+
+
+
+############################
+# Gcloud
+############################
+.service-account

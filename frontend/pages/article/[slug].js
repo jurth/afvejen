@@ -5,20 +5,19 @@ import Layout from "../../components/layout"
 import NextImage from "../../components/image"
 import Seo from "../../components/seo"
 import { getStrapiMedia } from "../../lib/media"
-import rehypeRaw from 'rehype-raw'
 
 const Article = ({ article, categories }) => {
-  const imageUrl = getStrapiMedia(article.image)
+  const imageUrl = getStrapiMedia(article.attributes.image)
 
   const seo = {
-    metaTitle: article.title,
-    metaDescription: article.description,
-    shareImage: article.image,
+    metaTitle: article.attributes.title,
+    metaDescription: article.attributes.description,
+    shareImage: article.attributes.image,
     article: true,
   }
 
   return (
-    <Layout categories={categories}>
+    <Layout categories={categories.data}>
       <Seo seo={seo} />
       <div
         id="banner"
@@ -27,24 +26,29 @@ const Article = ({ article, categories }) => {
         data-srcset={imageUrl}
         data-uk-img
       >
-        <h1>{article.title}</h1>
+        <h1>{article.attributes.title}</h1>
       </div>
       <div className="uk-section">
         <div className="uk-container uk-container-small">
-          <ReactMarkdown rehypePlugins={[rehypeRaw]} source={article.content} escapeHtml={false} />
+          <ReactMarkdown
+            source={article.attributes.content}
+            escapeHtml={false}
+          />
           <hr className="uk-divider-small" />
           <div className="uk-grid-small uk-flex-left" data-uk-grid="true">
             <div>
-              {article.author.picture && (
-                <NextImage image={article.author.picture} />
+              {article.attributes.author.picture && (
+                <NextImage image={article.attributes.author.picture} />
               )}
             </div>
             <div className="uk-width-expand">
               <p className="uk-margin-remove-bottom">
-                By {article.author.name}
+                By {article.attributes.author.name}
               </p>
               <p className="uk-text-meta uk-margin-remove-top">
-                <Moment format="MMM Do YYYY">{article.published_at}</Moment>
+                <Moment format="MMM Do YYYY">
+                  {article.attributes.published_at}
+                </Moment>
               </p>
             </div>
           </div>
@@ -55,12 +59,12 @@ const Article = ({ article, categories }) => {
 }
 
 export async function getStaticPaths() {
-  const articles = await fetchAPI("/articles")
+  const articlesRes = await fetchAPI("/articles", { fields: ["slug"] })
 
   return {
-    paths: articles.map((article) => ({
+    paths: articlesRes.data.map((article) => ({
       params: {
-        slug: article.slug,
+        slug: article.attributes.slug,
       },
     })),
     fallback: false,
@@ -68,11 +72,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const articles = await fetchAPI(`/articles?slug=${params.slug}`)
-  const categories = await fetchAPI("/categories")
+  const articlesRes = await fetchAPI("/articles", {
+    filters: {
+      slug: params.slug,
+    },
+    populate: "*",
+  })
+  const categoriesRes = await fetchAPI("/categories")
 
   return {
-    props: { article: articles[0], categories },
+    props: { article: articlesRes.data[0], categories: categoriesRes },
     revalidate: 1,
   }
 }

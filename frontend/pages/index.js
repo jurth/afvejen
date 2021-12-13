@@ -1,26 +1,17 @@
 import React from "react"
-import Articles from "../components/articles/articles"
+import Articles from "../components/articles"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { fetchAPI } from "../lib/api"
 
 const Home = ({ articles, categories, homepage }) => {
-
-  // Do not show article in the "demo" category.
-  const articlesToshow = articles.filter(function(article) {
-    if (article.category.name !== "demo") {
-      return article;
-    }
-  });
-
-
   return (
     <Layout categories={categories}>
-      <Seo seo={homepage.seo} />
+      <Seo seo={homepage.attributes.seo} />
       <div className="uk-section">
         <div className="uk-container uk-container-large">
-          <h1>{homepage.hero.title}</h1>
-          <Articles articles={articlesToshow} />
+          <h1>{homepage.attributes.hero.title}</h1>
+          <Articles articles={articles} />
         </div>
       </div>
     </Layout>
@@ -29,14 +20,23 @@ const Home = ({ articles, categories, homepage }) => {
 
 export async function getStaticProps() {
   // Run API calls in parallel
-  const [articles, categories, homepage] = await Promise.all([
-    fetchAPI("/articles"),
-    fetchAPI("/categories"),
-    fetchAPI("/homepage"),
+  const [articlesRes, categoriesRes, homepageRes] = await Promise.all([
+    fetchAPI("/articles", { populate: "*" }),
+    fetchAPI("/categories", { populate: "*" }),
+    fetchAPI("/homepage", {
+      populate: {
+        hero: "*",
+        seo: { populate: "*" },
+      },
+    }),
   ])
 
   return {
-    props: { articles, categories, homepage },
+    props: {
+      articles: articlesRes.data,
+      categories: categoriesRes.data,
+      homepage: homepageRes.data,
+    },
     revalidate: 1,
   }
 }

@@ -5,7 +5,8 @@ const path = require("path");
 // ensure the filepath is relative to this script
 // const filePath = ".certs/client-cert.pem";
 // const filePath = ".certs/client-key.pem";
-const filePath = ".certs/server-ca.pem";
+// const filePath = ".certs/server-ca.pem";
+const filePath =  "../../afvejen4/backend/service-accound-afvejen-cloud-store.json.json";
 
 // the main operation
 const base64Text = fs.readFileSync(path.resolve(filePath)).toString('base64');
