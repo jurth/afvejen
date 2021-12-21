@@ -7,7 +7,6 @@ Build the image
 Run the image
 `docker run -p 1337:1337 strapi`
 
-
 ## Cloud Run config
 Authenticate docker for Cloud Run
 `gcloud auth configure-docker`
