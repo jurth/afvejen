@@ -1,4 +1,4 @@
-# Strapi application
+# Next application
 
 ## Build and submit image With Docker
 Build the image with Docker 

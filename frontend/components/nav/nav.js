@@ -39,10 +39,9 @@ const Nav = ({ categories }) => {
         <div className="uk-navbar-right">
           <ul className="uk-navbar-nav uk-iconnav">
             <li>
-              <a
-                href="https://www.instagram.com/afvejen/"
-                uk-icon="icon: instagram"
-              ></a>
+              <Link href="https://www.instagram.com/afvejen/">
+                <a uk-icon="icon: instagram"></a>
+              </Link>
             </li>
           </ul>
         </div>

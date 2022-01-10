@@ -25,6 +25,7 @@
     "react-dom": "^17.0.2",
     "react-markdown": "^4.2.2",
     "react-moment": "^0.9.6",
+    "sass": "^1.47.0",
     "string-hash": "^1.1.3",
     "stylis-rule-sheet": "^0.0.10",
     "uikit": "^3.9.4"
