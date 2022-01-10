@@ -4,7 +4,10 @@ import NextImage from "../image"
 import styles from "./card.module.scss"
 
 const Card = ({ article }) => {
-  const pDate = new Date(article.attributes.publishedAt).toLocaleDateString('da-DK', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) ;
+  const pDate = new Date(article.attributes.publishedAt).toLocaleDateString(
+    "da-DK",
+    { weekday: "long", year: "numeric", month: "short", day: "numeric" }
+  )
 
   return (
     <Link href={`/article/${article.attributes.slug}`}>
@@ -20,8 +23,8 @@ const Card = ({ article }) => {
             <p id="title" className="uk-text-large">
               {article.attributes.title}
             </p>
-            <p id="date" className={`uk-article-meta ${styles.date}`}> 
-              {pDate}              
+            <p id="date" className={`uk-article-meta ${styles.date}`}>
+              {pDate}
             </p>
             <p id="description" className="">
               {article.attributes.description}
